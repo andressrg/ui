@@ -1,10 +1,4 @@
-import {
-  Dimensions,
-  StyleSheet,
-  NavigationExperimental,
-  Platform,
-  StatusBar,
-} from 'react-native';
+import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
 
 import {
   INCLUDE,
@@ -17,10 +11,20 @@ import {
 
 const window = Dimensions.get('window');
 
-const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
-const NAVIGATION_BAR_HEIGHT = NavigationExperimental.Header.HEIGHT;
+const STATUS_BAR_OFFSET = Platform.OS === 'android'
+  ? -StatusBar.currentConfig
+  : 0;
+const NAVIGATION_BAR_HEIGHT = 20;
 
-export const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
+export const sizeVariants = [
+  '',
+  'left',
+  'right',
+  'top',
+  'bottom',
+  'horizontal',
+  'vertical',
+];
 export const textComponents = [
   'shoutem.ui.Heading',
   'shoutem.ui.Title',
@@ -141,17 +145,57 @@ export default (variables = defaultThemeVariables) => ({
   // Common
   //
   guttersPadding: {
-    ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
-    ...createVariations('.md-gutter', sizeVariants, 'padding', variables.mediumGutter),
-    ...createVariations('.lg-gutter', sizeVariants, 'padding', variables.largeGutter),
-    ...createVariations('.xl-gutter', sizeVariants, 'padding', variables.extraLargeGutter),
+    ...createVariations(
+      '.sm-gutter',
+      sizeVariants,
+      'padding',
+      variables.smallGutter
+    ),
+    ...createVariations(
+      '.md-gutter',
+      sizeVariants,
+      'padding',
+      variables.mediumGutter
+    ),
+    ...createVariations(
+      '.lg-gutter',
+      sizeVariants,
+      'padding',
+      variables.largeGutter
+    ),
+    ...createVariations(
+      '.xl-gutter',
+      sizeVariants,
+      'padding',
+      variables.extraLargeGutter
+    ),
   },
 
   guttersMargin: {
-    ...createVariations('.sm-gutter', sizeVariants, 'margin', variables.smallGutter),
-    ...createVariations('.md-gutter', sizeVariants, 'margin', variables.mediumGutter),
-    ...createVariations('.lg-gutter', sizeVariants, 'margin', variables.largeGutter),
-    ...createVariations('.xl-gutter', sizeVariants, 'margin', variables.extraLargeGutter),
+    ...createVariations(
+      '.sm-gutter',
+      sizeVariants,
+      'margin',
+      variables.smallGutter
+    ),
+    ...createVariations(
+      '.md-gutter',
+      sizeVariants,
+      'margin',
+      variables.mediumGutter
+    ),
+    ...createVariations(
+      '.lg-gutter',
+      sizeVariants,
+      'margin',
+      variables.largeGutter
+    ),
+    ...createVariations(
+      '.xl-gutter',
+      sizeVariants,
+      'margin',
+      variables.extraLargeGutter
+    ),
   },
 
   commonVariants: {
@@ -248,7 +292,10 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   dimmedFeaturedBackground: {
-    backgroundColor: inverseColorBrightnessForAmount(variables.featuredColor, 5),
+    backgroundColor: inverseColorBrightnessForAmount(
+      variables.featuredColor,
+      5
+    ),
   },
 
   featuredBackground: {
@@ -329,7 +376,6 @@ export default (variables = defaultThemeVariables) => ({
 
     backgroundColor: 'transparent',
   },
-
 
   'shoutem.ui.Heading': {
     [INCLUDE]: ['text'],
@@ -455,7 +501,10 @@ export default (variables = defaultThemeVariables) => ({
     [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
 
     '.placeholder': {
-      backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 10),
+      backgroundColor: inverseColorBrightnessForAmount(
+        variables.paperColor,
+        10
+      ),
 
       'shoutem.ui.Icon': {
         color: inverseColorBrightnessForAmount(variables.paperColor, 30),
@@ -484,7 +533,8 @@ export default (variables = defaultThemeVariables) => ({
               extrapolateRight: 'clamp',
               useNativeDriver: true,
             }),
-          }, {
+          },
+          {
             translateY: driver.interpolate({
               inputRange: [-100, 100],
               outputRange: [-50, 50],
@@ -1040,7 +1090,10 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    underlayColor: changeColorAlpha(variables.primaryButtonBackgroundColor, 0.5),
+    underlayColor: changeColorAlpha(
+      variables.primaryButtonBackgroundColor,
+      0.5
+    ),
 
     backgroundColor: variables.primaryButtonBackgroundColor,
     flexDirection: 'row',
@@ -1209,9 +1262,12 @@ export default (variables = defaultThemeVariables) => ({
         },
       },
 
-      ...createSharedStyle(['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'], {
-        color: variables.featuredNavBarTitleColor,
-      }),
+      ...createSharedStyle(
+        ['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'],
+        {
+          color: variables.featuredNavBarTitleColor,
+        }
+      ),
 
       container: {
         [INCLUDE]: ['featuredBackground'],
@@ -1469,20 +1525,14 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.navigation.CardStack': {
     '.without-transitions': {
       interpolateCardStyle(props) {
-        const {
-          navigationState,
-          scene,
-        } = props;
+        const { navigationState, scene } = props;
 
         const focused = navigationState.index === scene.index;
         const opacity = focused ? 1 : 0;
         const translate = focused ? 0 : 1000000;
         return {
           opacity,
-          transform: [
-            { translateX: translate },
-            { translateY: translate },
-          ],
+          transform: [{ translateX: translate }, { translateY: translate }],
         };
       },
     },
@@ -1702,7 +1752,10 @@ export default (variables = defaultThemeVariables) => ({
             {
               translateX: driver.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, animationOptions.containerWidth - width - 2 * x],
+                outputRange: [
+                  0,
+                  animationOptions.containerWidth - width - 2 * x,
+                ],
               }),
             },
           ],
@@ -1716,7 +1769,10 @@ export default (variables = defaultThemeVariables) => ({
       horizontalContainer: {
         height: 40,
         justifyContent: 'center',
-        backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 5),
+        backgroundColor: inverseColorBrightnessForAmount(
+          variables.paperColor,
+          5
+        ),
         width: window.width,
         marginTop: 0,
         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -1842,8 +1898,7 @@ export default (variables = defaultThemeVariables) => ({
     container: {
       marginBottom: 20,
     },
-    text: {
-    },
+    text: {},
   },
   'shoutem.ui.Html': {
     container: {
@@ -2129,10 +2184,7 @@ export default (variables = defaultThemeVariables) => ({
         return {
           backgroundColor: driver.interpolate({
             inputRange: [0, 1],
-            outputRange: [
-              variables.paperColor,
-              '#000000',
-            ],
+            outputRange: [variables.paperColor, '#000000'],
           }),
         };
       },
